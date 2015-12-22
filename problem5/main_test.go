@@ -48,6 +48,52 @@ func TestContainsSameLetterTwice(t *testing.T) {
 	}
 }
 
+func TestContainsRepeatedCharacterWithOneCharacterBetween(t *testing.T) {
+	type testpair struct {
+		input  string
+		output bool
+	}
+
+	var tests = []testpair{
+		{"xx", false},
+		{"xyxy", true},
+		{"aaa", true},
+		{"abcdefeghi", true},
+		{"efe", true},
+	}
+
+	for _, pair := range tests {
+		num := ContainsRepeatedCharacterWithOneCharacterBetween(pair.input)
+		if num != pair.output {
+			t.Error(
+				"For", pair.input, "Expected", pair.output, "Got", num,
+			)
+		}
+	}
+}
+
+func TestContainsPairWithoutOverlap(t *testing.T) {
+	type testpair struct {
+		input  string
+		output bool
+	}
+
+	var tests = []testpair{
+		{"xyxy", true},
+		{"aaa", false},
+		{"aabcdefgaa", true},
+	}
+
+	for _, pair := range tests {
+		num := ContainsPairWithoutOverlap(pair.input)
+		if num != pair.output {
+			t.Error(
+				"For", pair.input, "Expected", pair.output, "Got", num,
+			)
+		}
+	}
+}
+
 func TestContainsInvalidSequences(t *testing.T) {
 	type testpair struct {
 		input  string
@@ -87,6 +133,29 @@ func TestNiceStrings(t *testing.T) {
 
 	for _, pair := range tests {
 		num := Nice(pair.input)
+		if num != pair.output {
+			t.Error(
+				"For", pair.input, "Expected", pair.output, "Got", num,
+			)
+		}
+	}
+}
+
+func TestUpdatedNiceStrings(t *testing.T) {
+	type testpair struct {
+		input  string
+		output bool
+	}
+
+	var tests = []testpair{
+		{"qjhvhtzxzqqjkmpb", true},
+		{"xxyxx", true},
+		{"uurcxstgmygtbstg", false},
+		{"ieodomkazucvgmuy", false},
+	}
+
+	for _, pair := range tests {
+		num := UpdatedNice(pair.input)
 		if num != pair.output {
 			t.Error(
 				"For", pair.input, "Expected", pair.output, "Got", num,
